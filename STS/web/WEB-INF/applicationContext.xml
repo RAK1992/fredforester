@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+       
+
+    <!--bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}" /-->
+
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:ldap.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+        <property name="url" value="${url}" />
+        <property name="base" value="${base}" />
+        <property name="userDn" value="${userDn}" />
+        <property name="password" value="${password}" />
+        <property name="pooled" value="${pooled}" />
+    </bean>
+
+    <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <constructor-arg ref="contextSource" />
+    </bean>
+
+    <bean id="stsAuthenticator" class="simple.sts.LDAPAuthenticator">
+        <constructor-arg ref="ldapTemplate" />
+    </bean>
+
+    <bean id="applicationContextProvider" class="org.sts.web.ApplicationContextProvider"></bean>
+
+
+</beans>

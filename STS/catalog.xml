@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Documents%20and%20Settings/manveen/.netbeans/6.5beta/STSService.wsdl" uri="src/conf/xml-resources/web-services/STS/wsdl/STSService.wsdl"/>
+    <system systemId="file:/C:/Documents%20and%20Settings/manveen/.netbeans/6.5beta/sts_schema.xsd" uri="src/conf/xml-resources/web-services/STS/wsdl/sts_schema.xsd"/>
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+</catalog>
