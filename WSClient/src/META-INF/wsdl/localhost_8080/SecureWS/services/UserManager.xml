@@ -1,0 +1,26 @@
+<html>
+<head><title>
+Web Services
+</title></head>
+<body>
+<h1>Web Services</h1>
+<table width='100%' border='1'>
+<tr>
+<td>
+Endpoint
+</td>
+<td>
+Information
+</td>
+</tr>
+<tr>
+<td>
+<table border="0"><tr><td>Service Name:</td><td>{http://usermanager.securews.org/}UserManagerService</td></tr><tr><td>Port Name:</td><td>{http://usermanager.securews.org/}UserManagerPort</td></tr></table>
+</td>
+<td>
+<table border="0"><tr><td>Address:</td><td>http://localhost:8080/SecureWS/services/UserManager</td></tr><tr><td>WSDL:</td><td><a href="http://localhost:8080/SecureWS/services/UserManager?wsdl">http://localhost:8080/SecureWS/services/UserManager?wsdl</a></td></tr><tr><td>Implementation class:</td><td>org.securews.usermanager.UserManager</td></tr></table>
+</td>
+</tr>
+</table>
+</body>
+</html>

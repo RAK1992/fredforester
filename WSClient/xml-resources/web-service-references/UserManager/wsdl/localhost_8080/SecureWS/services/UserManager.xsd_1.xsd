@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://usermanager.securews.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://usermanager.securews.org/">
+
+<xs:element name="getUserByName" type="tns:getUserByName" />
+
+<xs:element name="getUserByNameResponse" type="tns:getUserByNameResponse" />
+
+<xs:element name="user" type="tns:user" />
+
+<xs:complexType name="getUserByName">
+<xs:sequence>
+<xs:element name="userId" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUserByNameResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:user" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="user">
+<xs:complexContent>
+<xs:extension base="tns:baseObject">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0" />
+<xs:element name="firstName" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:long" minOccurs="0" />
+<xs:element name="lastName" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
+<xs:element name="passwordHint" type="xs:string" minOccurs="0" />
+<xs:element name="phoneNumber" type="xs:string" minOccurs="0" />
+<xs:element name="username" type="xs:string" minOccurs="0" />
+<xs:element name="website" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="baseObject" abstract="true">
+<xs:sequence />
+</xs:complexType>
+</xs:schema>
