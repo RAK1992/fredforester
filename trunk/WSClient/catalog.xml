@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/SecureWS/UserManager?wsdl" uri="xml-resources/web-service-references/UserManager/wsdl/localhost_8080/SecureWS/UserManager.wsdl"/>
+    <system systemId="http://localhost:8080/SecureWS/UserManager?xsd=1" uri="xml-resources/web-service-references/UserManager/wsdl/localhost_8080/SecureWS/UserManager.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/STS/STSService?wsdl" uri="xml-resources/web-service-references/STSService/wsdl/localhost_8080/STS/STSService.wsdl"/>
+    <system systemId="http://localhost:8080/STS/STSService?xsd=1" uri="xml-resources/web-service-references/STSService/wsdl/localhost_8080/STS/STSService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/SecureWS/services/UserManager" uri="xml-resources/web-service-references/UserManager/wsdl/localhost_8080/SecureWS/services/UserManager.xml"/>
+    <system systemId="http://localhost:8080/SecureWS/services/UserManager?wsdl" uri="xml-resources/web-service-references/UserManager/wsdl/localhost_8080/SecureWS/services/UserManager.wsdl"/>
+    <system systemId="http://localhost:8080/SecureWS/services/UserManager?xsd=1" uri="xml-resources/web-service-references/UserManager/wsdl/localhost_8080/SecureWS/services/UserManager.xsd_1.xsd"/>
+</catalog>
