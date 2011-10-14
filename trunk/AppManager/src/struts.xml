@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Constants -->
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.extension" value="html"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources,errors"/>
+    <constant name="struts.multipart.maxSize" value="2097152"/>
+    <constant name="struts.ui.theme" value="css_xhtml"/>
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/"/>
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.convention.action.disableScanning" value="true"/>
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <interceptors>
+            <!-- Interceptor to handle allowing only admins to certain actions -->
+            <interceptor name="adminOnly" class="adminInterceptor"/>
+            <!-- Copied from struts-default.xml and changed validation exclude methods -->
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">cancel,execute,delete,edit,list</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="adminCheck">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="adminOnly"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="mainMenu" type="redirectAction">mainMenu</result>
+            <result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
+        </global-exception-mappings>
+
+        <action name="mainMenu">
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+
+        <action name="signup" class="signupAction">
+            <result name="cancel" type="redirect">/</result>
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="chain">saveSignup</result>
+        </action>
+
+        <action name="saveSignup" class="signupAction" method="save">
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="redirectAction">/mainMenu</result>
+        </action>
+
+        <action name="editUser" class="userAction" method="edit">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="input">/WEB-INF/pages/admin/userList.jsp</result>
+        </action>
+
+        <action name="editProfile" class="userAction" method="edit">
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+
+        <action name="saveUser" class="userAction" method="save">
+            <result name="cancel" type="redirectAction">admin/users</result>
+            <result name="input">/WEB-INF/pages/userForm.jsp</result>
+            <result name="success" type="redirectAction">admin/users</result>
+        </action>
+
+        <action name="uploadFile" class="com.mycompany.webapp.action.FileUploadAction">
+            <interceptor-ref name="fileUploadStack"/>
+            <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+            <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+            <result name="cancel" type="redirectAction">mainMenu</result>
+        </action>
+
+        <action name="passwordHint" class="passwordHintAction">
+            <result name="input">/</result>
+            <result name="success">/</result>
+        </action>
+
+        
+        <!-- Application methods -->
+        <action name="applicationList">
+            <result name="input">/WEB-INF/pages/applicationList.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationList.jsp</result>
+        </action>
+        
+        <!-- 
+        <action name="updateAppPrivs" class="com.mycompany.webapp.action.ApplicationAction" method="updateAppPrivs"> 
+            <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+        </action>
+         -->
+        
+        <action name="updateApplication" class="com.mycompany.webapp.action.ApplicationAction" method="updateApplication">
+            <result name="input">/WEB-INF/pages/applicationList.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationList.jsp</result>
+        </action>
+        
+        <action name="updateAppUserValues" class="com.mycompany.webapp.action.ApplicationAction" method="updateAppUserValues"> 
+            <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+        </action>
+        
+        <!-- 
+        <action name="updateAppOwners" class="com.mycompany.webapp.action.ApplicationAction" method="updateAppOwners"> 
+            <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+        </action>
+         -->
+        <!-- 
+        <action name="updateAppRoleOwners" class="com.mycompany.webapp.action.ApplicationAction" method="updateAppRoleOwners"> 
+            <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+            <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+        </action>
+         -->
+        
+        <action name="viewUser" class="com.mycompany.webapp.action.ApplicationAction" method="edit">
+            <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+            <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+        </action>
+        
+        <action name="editApp" class="com.mycompany.webapp.action.ApplicationAction" method="edit">
+ 	        <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+ 	    </action>
+ 	
+ 	    <action name="saveApp" class="com.mycompany.webapp.action.ApplicationAction" method="save">
+ 	        <result name="success">/WEB-INF/pages/applicationForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/applicationForm.jsp</result>
+ 	    </action> 
+        <!-- End Application methods -->
+
+        
+        <!-- Privileges and PrivRoles -->
+        <action name="privilegeList">
+            <result name="input">/WEB-INF/pages/privilegeList.jsp</result>
+            <result name="success">/WEB-INF/pages/privilegeList.jsp</result>
+        </action>
+        
+        <action name="editPrivilege" class="com.mycompany.webapp.action.PrivilegeRoleAction" method="edit">
+ 	        <result name="success">/WEB-INF/pages/privilegeForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/privilegeForm.jsp</result>
+ 	    </action>
+ 	    
+        <action name="savePrivilege" class="com.mycompany.webapp.action.PrivilegeRoleAction" method="save">
+            <result name="success">/WEB-INF/pages/privilegeForm.jsp</result>
+            <result name="input">/WEB-INF/pages/privilegeForm.jsp</result>
+        </action>
+        <!-- End Privileges and PrivRoles -->
+        
+        
+        <!-- Roles methods -->
+        <action name="rolesList">
+            <result name="input">/WEB-INF/pages/rolesList.jsp</result>
+            <result name="success">/WEB-INF/pages/rolesList.jsp</result>
+        </action>
+        
+        <action name="editRole" class="com.mycompany.webapp.action.RolesAction" method="edit">
+ 	        <result name="success">/WEB-INF/pages/rolesForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/rolesForm.jsp</result>
+ 	    </action>
+ 	    
+        <action name="saveRole" class="com.mycompany.webapp.action.RolesAction" method="save">
+            <result name="success">/WEB-INF/pages/rolesForm.jsp</result>
+            <result name="input">/WEB-INF/pages/rolesForm.jsp</result>
+        </action>
+        <!-- Roles methods -->
+        
+
+        
+        <!--  AppUserValues -->
+        <action name="appUserValuesList">
+            <result name="input">/WEB-INF/pages/appUserValuesList.jsp</result>
+            <result name="success">/WEB-INF/pages/appUserValuesList.jsp</result>
+        </action>
+        
+        <action name="editAppUserValue" class="com.mycompany.webapp.action.AppUserValuesAction" method="edit">
+ 	        <result name="success">/WEB-INF/pages/appUserValuesForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/appUserValuesForm.jsp</result>
+ 	    </action>
+ 	    
+        <action name="saveAppUserValue" class="com.mycompany.webapp.action.AppUserValuesAction" method="save">
+            <result name="success">/WEB-INF/pages/appUserValuesForm.jsp</result>
+            <result name="input">/WEB-INF/pages/appUserValuesForm.jsp</result>
+        </action>
+        <!--  End AppUserValues -->
+
+        
+        <!--  Person Jquery Demo -->
+        <action name="personList">
+            <result name="input">/WEB-INF/pages/personList.jsp</result>
+            <result name="success">/WEB-INF/pages/personList.jsp</result>
+        </action>
+        
+        <!--  called when a record is clicked on the grid -->
+        <action name="editPerson" class="com.mycompany.webapp.action.PersonAction" method="edit">
+ 	        <result name="success">/WEB-INF/pages/personForm.jsp</result>
+ 	        <result name="input">/WEB-INF/pages/personForm.jsp</result>
+ 	    </action>
+        
+        <!--  called when clicking save on the edit form -->
+        <action name="savePerson" class="com.mycompany.webapp.action.PersonAction" method="save">
+            <result name="success">/WEB-INF/pages/personForm.jsp</result>
+            <result name="input">/WEB-INF/pages/personForm.jsp</result>
+        </action>
+        
+    </package>
+    
+    <package name="json" extends="json-default" namespace="/json">
+    
+    	<!--  Application json methods -->
+        <action name="applicationList" 
+           class="com.mycompany.webapp.action.ApplicationAction" method="list">
+            <result type="json">
+                <param name="includeProperties">applications.*,records,total,page</param>
+            </result>
+        </action>
+        
+        <action name="appPrivGridList" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appPrivGridList">
+            <result type="json">
+                <param name="includeProperties">applicationprivs.*</param>
+            </result>
+        </action>
+        
+        <action name="gridEditAppPrivs" class="com.mycompany.webapp.action.ApplicationAction" method="gridEditAppPrivs">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <action name="appOwnersGridList" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appOwnersList">
+            <result type="json">
+                <param name="includeProperties">appOwnerList.*</param>
+            </result>
+        </action>
+        
+        <action name="gridEditAppOwners" class="com.mycompany.webapp.action.ApplicationAction" method="gridEditAppOwners">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <action name="appRoleOwnersGridList" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appRoleOwnersList">
+            <result type="json">
+                <param name="includeProperties">appRoleOwnerList.*</param>
+            </result>
+        </action>
+        
+        <action name="gridEditAppRoleOwners" class="com.mycompany.webapp.action.ApplicationAction" method="gridEditAppRoleOwners">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <action name="appPrivRoleSelect" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appPrivRoleSelect">
+            <result type="json">
+                <param name="root">appPrivRolesList</param>
+            </result>
+        </action>
+        
+        <action name="loadPrivSelectOptions" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="loadPrivSelectOptions">
+            <result type="json">
+                <param name="root">privSelectOptions</param>
+            </result>
+        </action>
+        
+        <action name="getCUVSelect" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="getCUVSelect">
+            <result type="json">
+                <param name="root">appuservaluesList</param>
+            </result>
+        </action>
+        
+        <action name="appPrivSelect" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appPrivSelect">
+            <result type="json">
+                <param name="root">appPrivList</param>
+            </result>
+        </action>
+        
+        <action name="appPrivRoleUserValuesList" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="appPrivRoleUserValuesList">
+            <result type="json">
+                <param name="includeProperties">appRoleUserValues.*</param>
+            </result>
+        </action>
+        
+        <action name="gridEditAppPrivRoleUserValues" class="com.mycompany.webapp.action.ApplicationAction" method="gridEditAppPrivRoleUserValues">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <action name="privSelect" 
+                class="com.mycompany.webapp.action.ApplicationAction" 
+                method="privSelect">
+            <result type="json">
+            	<param name="includeProperties">privSelect.*</param>
+            </result>
+        </action>
+        <!--  End Application json methods -->
+
+        
+		<!-- Privs and roles -->
+		<!-- privilegeList page -->
+        <action name="privilegeList" 
+           class="com.mycompany.webapp.action.PrivilegeRoleAction" method="list">
+            <result type="json">
+                <param name="includeProperties">privileges.*,records,total,page</param>
+            </result>
+        </action>
+        
+        <action name="gridEditPrivilege" 
+           class="com.mycompany.webapp.action.PrivilegeRoleAction" method="gridEditPrivilege">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <action name="gridEditRolesPriv" 
+           class="com.mycompany.webapp.action.PrivilegeRoleAction" method="gridEditRolesPriv">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <!-- privilegeForm page -->
+        <action name="rolesPrivGridList" 
+                class="com.mycompany.webapp.action.PrivilegeRoleAction" 
+                method="rolesPrivList">
+            <result type="json">
+                <param name="includeProperties">rolesPrivList.*</param>
+            </result>
+        </action>
+        
+        <action name="rolesSelect" 
+                class="com.mycompany.webapp.action.PrivilegeRoleAction" 
+                method="rolesSelect">
+            <result type="json">
+                <param name="root">rolesSelect</param>
+            </result>
+        </action>
+        <!-- End Privs and roles -->
+        
+        <!-- rolesList page -->
+        <action name="rolesList" 
+           class="com.mycompany.webapp.action.RolesAction" method="list">
+            <result type="json">
+                <param name="includeProperties">roles.*,records,total,page</param>
+            </result>
+        </action>
+        
+        <action name="gridEditRole" 
+           class="com.mycompany.webapp.action.RolesAction" method="gridEditRole">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        <!--  AppUserValues -->
+        <action name="appUserValuesList" 
+           class="com.mycompany.webapp.action.AppUserValuesAction" method="list">
+            <result type="json">
+                <param name="includeProperties">appUserValues.*,records,total,page</param>
+            </result>
+        </action>
+        <!-- called when the submit button is clicked on the grid add form -->
+        <action name="gridEditAppUserValue" class="com.mycompany.webapp.action.AppUserValuesAction" method="gridEditAppUserValue">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+        
+        
+        <!--  Person Jquery Paging Demo -->
+        <!-- called from the personList.html page to load the grid -->
+        <action name="personList" 
+           class="com.mycompany.webapp.action.PersonAction" method="list">
+            <result type="json">
+                <param name="includeProperties">persons.*,records,total,page</param>
+            </result>
+        </action>
+        
+        <!-- called when the submit button is clicked on the grid add form -->
+        <action name="gridEditPerson" class="com.mycompany.webapp.action.PersonAction" method="gridEditPerson">
+            <result type="json">
+                <param name="includeProperties">gridOperationMessage</param>
+            </result>
+        </action>
+                
+    </package>
+
+    <!-- Actions in this package will be prefixed with /admin/ -->
+    <package name="admin" extends="default" namespace="/admin">
+        <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
+        </action>
+        
+        <action name="reload" class="com.mycompany.webapp.action.ReloadAction">
+            <interceptor-ref name="adminCheck"/>
+            <!-- this should never be used, it's here to prevent warnings -->
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+
+        <action name="users" class="userAction" method="list">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/admin/userList.jsp</result>
+        </action>
+    </package>
+</struts>
