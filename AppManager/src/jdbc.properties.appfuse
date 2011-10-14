@@ -1,0 +1,12 @@
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://10.10.1.151/myproject?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true
+jdbc.username=fforester
+jdbc.password=ZZzz9191YYyy
+
+hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+
+# Needed by Hibernate3 Maven Plugin defined in pom.xml
+hibernate.connection.username=fforester
+hibernate.connection.password=ZZzz9191YYyy
+hibernate.connection.url=jdbc:mysql://10.10.1.151/myproject?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true
+hibernate.connection.driver_class=com.mysql.jdbc.Driver

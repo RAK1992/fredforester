@@ -1,0 +1,9 @@
+# add this partion after id=example partition
+#<jdbmPartition id="sevenSeas" suffix="o=sevenSeas" />
+# chmod u+x apacheds.sh
+
+dn: o=sevenSeas
+o: sevenSeas
+objectClass: top
+objectClass: organization
+description: The context entry for suffix o=sevenSeas

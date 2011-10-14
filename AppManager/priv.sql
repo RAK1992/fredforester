@@ -1,0 +1,36 @@
+delete from priv;
+
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(1,'PRIVID01','Priv 01',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(2,'PRIVID02','Priv 02',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(3,'PRIVID03','Priv 03',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(4,'PRIVID04','Priv 04',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(5,'PRIVID05','Priv 05',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(6,'PRIVID06','Priv 06',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(7,'PRIVID07','Priv 07',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(8,'PRIVID08','Priv 08',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(9,'PRIVID09','Priv 09',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(10,'PRIVID10','Priv 10',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(11,'PRIVID11','Priv 11',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(12,'PRIVID12','Priv 12',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(13,'PRIVID13','Priv 13',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(14,'PRIVID14','Priv 14',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(15,'PRIVID15','Priv 15',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(16,'PRIVID16','Priv 16',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(17,'PRIVID17','Priv 17',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(18,'PRIVID18','Priv 18',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(19,'PRIVID19','Priv 19',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(20,'PRIVID20','Priv 20',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(21,'PRIVID21','Priv 21',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(22,'PRIVID22','Priv 22',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(23,'PRIVID23','Priv 23',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(24,'PRIVID24','Priv 24',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(25,'PRIVID25','Priv 25',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(26,'PRIVID26','Priv 26',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(27,'PRIVID27','Priv 27',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(28,'PRIVID28','Priv 28',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(29,'PRIVID29','Priv 29',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(30,'PRIVID30','Priv 30',1,0);
+insert into priv (priv_no,priv_id,priv_desc,activeflag,ISFORCEDREDIRECT) values(31,'PRIVID31','Priv 31',1,0);
+
+DROP SEQUENCE "APPMANAGER"."PRIV_SEQ";
+CREATE SEQUENCE  "APPMANAGER"."PRIV_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 32 CACHE 20 NOORDER NOCYCLE;

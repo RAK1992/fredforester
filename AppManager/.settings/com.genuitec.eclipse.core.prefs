@@ -1,0 +1,4 @@
+#Thu Sep 29 07:13:52 EDT 2011
+eclipse.preferences.version=1
+validator.Checked=WebRoot/scripts/login.js,WebRoot/WEB-INF/web.xml,WebRoot/WEB-INF/urlrewrite.xml,WebRoot/common/header.jsp,src/struts.xml
+validator.Unchecked=

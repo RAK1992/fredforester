@@ -1,0 +1,36 @@
+delete from roles;
+
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(1,'ROLEID01','Role 01',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(2,'ROLEID02','Role 02',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(3,'ROLEID03','Role 03',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(4,'ROLEID04','Role 04',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(5,'ROLEID05','Role 05',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(6,'ROLEID06','Role 06',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(7,'ROLEID07','Role 07',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(8,'ROLEID08','Role 08',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(9,'ROLEID09','Role 09',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(10,'ROLEID10','Role 10',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(11,'ROLEID11','Role 11',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(12,'ROLEID12','Role 12',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(13,'ROLEID13','Role 13',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(14,'ROLEID14','Role 14',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(15,'ROLEID15','Role 15',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(16,'ROLEID16','Role 16',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(17,'ROLEID17','Role 17',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(18,'ROLEID18','Role 18',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(19,'ROLEID19','Role 19',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(20,'ROLEID20','Role 20',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(21,'ROLEID21','Role 21',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(22,'ROLEID22','Role 22',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(23,'ROLEID23','Role 23',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(24,'ROLEID24','Role 24',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(25,'ROLEID25','Role 25',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(26,'ROLEID26','Role 26',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(27,'ROLEID27','Role 27',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(28,'ROLEID28','Role 28',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(29,'ROLEID29','Role 29',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(30,'ROLEID30','Role 30',1,1);
+insert into roles (role_no,role_id,role_desc,activeflag,ROLETYPEID) values(31,'ROLEID31','Role 31',1,1);
+
+DROP SEQUENCE "APPMANAGER"."ROLES_SEQ";
+CREATE SEQUENCE  "APPMANAGER"."ROLES_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 32 CACHE 20 NOORDER NOCYCLE;

@@ -1,0 +1,22 @@
+<!-- NOTE: If you're working offline, you might have to change the DOCTYPE to the following:
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">-->
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="com.mycompany.model.User"/>
+        <mapping class="com.mycompany.model.Role"/>
+        <mapping class="com.mycompany.model.Application"/>
+        <mapping class="com.mycompany.model.Applicationpriv"/>
+        <mapping class="com.mycompany.model.Roles"/>
+        <mapping class="com.mycompany.model.RolesPriv"/>
+        <mapping class="com.mycompany.model.Appuservalues"/>
+        <mapping class="com.mycompany.model.Approleuservalues"/>
+        <mapping class="com.mycompany.model.Applicationowner"/>
+        <mapping class="com.mycompany.model.Approleowner"/>
+        <mapping class="com.mycompany.model.Priv"/>
+        <mapping class="com.mycompany.model.Person"/>
+    </session-factory>
+</hibernate-configuration>
