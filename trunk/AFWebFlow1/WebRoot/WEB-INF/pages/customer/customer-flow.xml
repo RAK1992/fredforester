@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+	<secured attributes="ROLE_USER" />
+
+	<input name="id" type="long"/>
+    
+    <decision-state id="createOrEdit">
+        <if test="id == null" then="create" else="edit" />
+    </decision-state>
+
+    <action-state id="create">
+        <evaluate expression="customerBean" result="flowScope.customer" />
+        <transition to="customerForm" />
+    </action-state>
+    
+
+    <action-state id="edit">
+        <evaluate expression="customerManager.findPersonById(id)" result="flowScope.customer" />
+        <transition to="customerForm" />
+    </action-state>
+    
+    <view-state id="customerForm" model="customer" view="/customer/form">
+        <transition on="addAddress" to="address" bind="false">
+            <set name="flashScope.addressId" value="''" />
+        </transition>
+        <transition on="editAddress" to="address">
+            <set name="flashScope.addressId" value="requestParameters.addressId" />
+        </transition>
+        <transition on="deleteAddress" to="customerForm">
+            <evaluate expression="customerManager.deleteAddress(id, requestParameters.addressId)" result="flowScope.customer" />
+        </transition>
+        
+        <transition on="addQuestion" to="question" bind="false">
+            <set name="flashScope.questionId" value="''" />
+        </transition>
+        <transition on="editQuestion" to="question">
+            <set name="flashScope.questionId" value="requestParameters.questionId" />
+        </transition>
+        <transition on="deleteQuestion" to="customerForm">
+            <evaluate expression="customerManager.deleteQuestion(id, requestParameters.questionId)" result="flowScope.customer" />
+        </transition>
+        
+        <transition on="save" to="customerUpdated">
+            <evaluate expression="customerManager.save(customer)" result="flowScope.customer" />
+            <set name="flowScope.id" value="customer.id" />
+            <set name="flashScope.statusMessageKey" value="'customer.form.msg.success'" />
+        </transition>
+        <!--
+        <transition on="cancel" to="customerList">
+            <evaluate expression="customerManager.findPersons()" result="flowScope.customerList" />
+        </transition>
+        -->
+        <transition on="cancel" to="cancel" bind="false">
+            <evaluate expression="searchCriteria" result="flowScope.searchCriteria" />
+        </transition>
+        
+    </view-state>
+    
+    <view-state id="customerUpdated" model="customer" view="/customer/actionComplete">
+        
+        <transition on="editCurrent" to="customerForm">
+            <evaluate expression="customerManager.findPersonById(customer.id)" result="flowScope.customer" />
+        </transition>
+        <transition on="addAnother" to="customerForm">
+            <evaluate expression="customerBean" result="flowScope.customer" />
+        </transition>
+        <transition on="cancel" to="cancel" bind="false">
+            <evaluate expression="searchCriteria" result="flowScope.searchCriteria" />
+        </transition>
+    </view-state>
+    
+    <view-state id="customerList" model="customer" view="/customer/customerList">
+        <transition on="edit" to="createOrEdit">
+            <set name="flowScope.id" value="requestParameters.id" />
+        </transition>
+    </view-state>
+    
+    
+    <subflow-state id="address" subflow="customer/address"> 
+        <input name="id" value="addressId"/>
+        <input name="customer" value="customer"/>
+        
+        <output name="address" />
+        
+        <transition on="saveAddress" to="customerForm">
+            <evaluate expression="customerManager.saveAddress(id, address)" result="flowScope.customer" />
+            <set name="flashScope.statusMessageKey" value="'address.form.msg.success'" />
+        </transition>
+        <transition on="cancelAddress" to="customerForm" />
+    </subflow-state>
+    
+    <subflow-state id="question" subflow="customer/question"> 
+        <input name="id" value="questionId"/>
+        <input name="customer" value="customer"/>
+        
+        <output name="question" />
+        
+        <transition on="saveQuestion" to="customerForm">
+            <evaluate expression="customerManager.saveQuestion(id, question)" result="flowScope.customer" />
+            <set name="flashScope.statusMessageKey" value="'question.form.msg.success'" />
+        </transition>
+        <transition on="cancelQuestion" to="customerForm" />
+    </subflow-state>
+    
+    <end-state id="customerConfirmed"/>
+
+    <end-state id="cancel" view="/customer/searchForm"/>
+
+</flow>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="AFWebFlow"
+  id="myeclipse.1319398797792"
+  context-root="/AFWebFlow"
+  j2ee-spec="6.0"
+  archive="AFWebFlow.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
